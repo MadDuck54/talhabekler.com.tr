@@ -6,6 +6,10 @@ const blog = defineCollection({
   schema: z.object({
     title: z.string(),
     lede: z.string().optional(),
+    /** Google snippet için — verilmezse lede'nin ilk 155 karakteri kullanılır */
+    metaDescription: z.string().max(160).optional(),
+    /** sosyal paylaşım başlığı — verilmezse title kullanılır */
+    ogTitle: z.string().optional(),
     date: z.coerce.date(),
     updated: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),

@@ -53,30 +53,79 @@ const updatedStr = entry.data.updated ? fmt(entry.data.updated) : null;
 const wordCount = entry.body?.split(/\s+/).filter(Boolean).length ?? 0;
 const readMin = Math.max(1, Math.round(wordCount / 200));
 
-const articleJsonLd = {
+// Google snippet için ayrı; verilmezse lede'nin ilk 155 karakteri
+const metaDesc =
+  entry.data.metaDescription ??
+  (entry.data.lede ? entry.data.lede.slice(0, 155) : entry.data.title);
+
+const postUrl = `https://talhabekler.com.tr/blog/${entry.id}`;
+
+const jsonLdGraph = {
   '@context': 'https://schema.org',
-  '@type': 'BlogPosting',
-  headline: entry.data.title,
-  description: entry.data.lede ?? entry.data.title,
-  datePublished: entry.data.date.toISOString(),
-  dateModified: (entry.data.updated ?? entry.data.date).toISOString(),
-  inLanguage: 'tr-TR',
-  author: { '@type': 'Person', name: 'Talha Bekler', url: 'https://talhabekler.com.tr' },
-  url: `https://talhabekler.com.tr/blog/${entry.id}`,
-  keywords: entry.data.tags.join(', '),
+  '@graph': [
+    {
+      '@type': 'BlogPosting',
+      headline: entry.data.title,
+      description: metaDesc,
+      datePublished: entry.data.date.toISOString(),
+      dateModified: (entry.data.updated ?? entry.data.date).toISOString(),
+      inLanguage: 'tr-TR',
+      author: {
+        '@type': 'Person',
+        name: 'Talha Bekler',
+        url: 'https://talhabekler.com.tr',
+      },
+      publisher: {
+        '@type': 'Person',
+        name: 'Talha Bekler',
+        url: 'https://talhabekler.com.tr',
+      },
+      url: postUrl,
+      mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
+      keywords: entry.data.tags.join(', '),
+      wordCount,
+      timeRequired: `PT${readMin}M`,
+      articleSection: entry.data.tags[0] ?? 'blog',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Talha Bekler',
+          item: 'https://talhabekler.com.tr',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Blog',
+          item: 'https://talhabekler.com.tr/blog',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: entry.data.title,
+          item: postUrl,
+        },
+      ],
+    },
+  ],
 };
 ---
 
 <BaseLayout
   title={`${entry.data.title} — Talha Bekler`}
-  description={entry.data.lede ?? entry.data.title}
+  description={metaDesc}
+  ogTitle={entry.data.ogTitle ?? `${entry.data.title} — Talha Bekler`}
+  ogDescription={metaDesc}
   ogType="article"
   section="blog"
   breadcrumb={`blog/talha-bekler/${entry.id}`}
   metaTr={`${readMin} dk · ${dateStr}`}
   metaEn={`${readMin} min · ${dateStr}`}
   showLangToggle={false}
-  jsonLd={articleJsonLd}
+  jsonLd={jsonLdGraph}
   footOkTr="yazı sonu"
   footOkEn="end of post"
 >
