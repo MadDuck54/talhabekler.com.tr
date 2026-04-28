@@ -1,0 +1,311 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Talha Bekler',
+  jobTitle: 'Tam Yığın Geliştirici',
+  description:
+    'İç sistemler kuran tam yığın geliştirici. Üretim ve operasyon işletmeleri için ERP/MES, depo yönetim, AI iş akışları üretir.',
+  url: 'https://talhabekler.com.tr',
+  knowsAbout: [
+    'Laravel', 'PHP', 'Node.js', 'Vue.js', 'React', 'Next.js', 'Astro', 'TypeScript',
+    'PostgreSQL', 'MySQL', 'Redis',
+    'Linux', 'Docker', 'Caddy', 'Cloudflare', 'Tailscale', 'systemd',
+    'ERP', 'MES', 'WMS',
+    'AI workflow', 'Multi-agent systems', 'Claude Code',
+  ],
+  knowsLanguage: [
+    { '@type': 'Language', name: 'Türkçe', alternateName: 'tr' },
+    { '@type': 'Language', name: 'English', alternateName: 'en' },
+  ],
+};
+---
+
+<BaseLayout
+  title="Talha Bekler — Tam Yığın Geliştirici"
+  description="Talha Bekler — iç sistemler kuran tam yığın geliştirici. Üretim ve operasyon işletmeleri için ERP/MES, depo yönetim, AI iş akışları üretir."
+  ogTitle="Talha Bekler — Tam Yığın Geliştirici"
+  ogDescription="İç sistemler kuran tam yığın geliştirici. ERP/MES, depo yönetim, AI iş akışları, self-hosted altyapı."
+  ogType="profile"
+  section="cv"
+  breadcrumb="cv/talha-bekler"
+  metaTr="sürüm 2026.04"
+  metaEn="build 2026.04"
+  jsonLd={personJsonLd}
+>
+  <section class="hero">
+    <div class="meta">
+      <span data-tr>belge</span><span data-en hidden>document</span>
+      <span class="v">CV—001</span>
+      <span data-tr>tarih</span><span data-en hidden>date</span>
+      <span class="v">2026·04·26</span>
+      <span data-tr>durum</span><span data-en hidden>status</span>
+      <span class="v" data-tr>aktif</span><span class="v" data-en hidden>live</span>
+    </div>
+    <h1 class="name"><span class="lt">[</span>talha bekler<span class="lt">]</span><span class="cur"></span></h1>
+    <div class="role">
+      <span data-tr>iç sistemler kuran tam yığın geliştirici</span>
+      <span data-en hidden>full-stack developer who builds internal systems</span>
+    </div>
+  </section>
+
+  <section class="row">
+    <h2 class="lbl">
+      <span class="num">01</span>
+      <span data-tr>tanım</span><span data-en hidden>profile</span>
+    </h2>
+    <div class="body">
+      <p class="lede" data-tr>
+        Üretim ve operasyon işletmeleri için <span class="hl">iç araçlar</span>
+        yazıyorum. Web ve sunucudan sahadaki donanıma, oradan da AI iş
+        akışlarına kadar farklı katmanlarda çalışmayı seviyorum.
+      </p>
+      <p class="lede" data-en hidden>
+        I build <span class="hl">internal tools</span> for manufacturing and
+        operations. I enjoy moving between layers — web, servers,
+        on-floor hardware and AI workflows.
+      </p>
+    </div>
+  </section>
+
+  <section class="row">
+    <h2 class="lbl">
+      <span class="num">02</span>
+      <span data-tr>uzmanlık</span><span data-en hidden>focus</span>
+    </h2>
+    <div class="body">
+      <div class="focus">
+        <dl><dt>backend</dt><dd>
+          <button class="chip" data-tag="laravel">laravel</button>
+          <button class="chip" data-tag="php">php</button>
+          <button class="chip" data-tag="node">node</button>
+          <button class="chip" data-tag="queue">queue jobs</button>
+          <button class="chip" data-tag="multitenant">multi-tenant</button>
+          <button class="chip" data-tag="sanctum">sanctum</button>
+        </dd></dl>
+        <dl><dt>frontend</dt><dd>
+          <button class="chip" data-tag="vue">vue 3</button>
+          <button class="chip" data-tag="react">react</button>
+          <button class="chip" data-tag="next">next.js</button>
+          <button class="chip" data-tag="inertia">inertia</button>
+          <button class="chip" data-tag="livewire">livewire</button>
+          <button class="chip" data-tag="alpine">alpine</button>
+          <button class="chip" data-tag="ts">typescript</button>
+          <button class="chip" data-tag="astro">astro</button>
+          <button class="chip" data-tag="tailwind">tailwind</button>
+        </dd></dl>
+        <dl><dt>data</dt><dd>
+          <button class="chip" data-tag="postgres">postgres</button>
+          <button class="chip" data-tag="mysql">mysql</button>
+          <button class="chip" data-tag="sqlite">sqlite</button>
+          <button class="chip" data-tag="redis">redis</button>
+          <button class="chip" data-tag="drizzle">drizzle</button>
+          <button class="chip" data-tag="eloquent">eloquent</button>
+        </dd></dl>
+        <dl><dt>infra</dt><dd>
+          <button class="chip" data-tag="linux">linux</button>
+          <button class="chip" data-tag="docker">docker</button>
+          <button class="chip" data-tag="caddy">caddy</button>
+          <button class="chip" data-tag="cloudflare">cloudflare</button>
+          <button class="chip" data-tag="tailscale">tailscale</button>
+          <button class="chip" data-tag="systemd">systemd</button>
+        </dd></dl>
+        <dl><dt>ai</dt><dd>
+          <button class="chip" data-tag="claude-code">claude code subagents</button>
+          <button class="chip" data-tag="vercel-ai">vercel ai sdk</button>
+          <button class="chip" data-tag="multi-provider">multi-provider</button>
+          <button class="chip" data-tag="agent-orch">agent orchestration</button>
+        </dd></dl>
+        <dl><dt>hardware</dt><dd>
+          <button class="chip" data-tag="tspl">tspl yazıcılar</button>
+          <button class="chip" data-tag="qr">qr</button>
+          <button class="chip" data-tag="industrial">endüstriyel entegrasyon</button>
+        </dd></dl>
+        <dl><dt>design</dt><dd>
+          <button class="chip" data-tag="brand"><span data-tr>marka kimliği</span><span data-en hidden>brand identity</span></button>
+          <button class="chip" data-tag="design-system"><span data-tr>tasarım sistemleri</span><span data-en hidden>design systems</span></button>
+          <button class="chip" data-tag="typography"><span data-tr>tipografi</span><span data-en hidden>typography</span></button>
+          <button class="chip" data-tag="field-ux"><span data-tr>saha-bazlı ux</span><span data-en hidden>field-driven ux</span></button>
+        </dd></dl>
+        <dl><dt>method</dt><dd>
+          <button class="chip" data-tag="internal-tools"><span data-tr>iç araçlar</span><span data-en hidden>internal tools</span></button>
+          <button class="chip" data-tag="end-to-end"><span data-tr>uçtan uca</span><span data-en hidden>end-to-end</span></button>
+          <button class="chip" data-tag="domain"><span data-tr>domain modelleme</span><span data-en hidden>domain modeling</span></button>
+        </dd></dl>
+      </div>
+      <div class="filter-bar" id="filterBar">
+        <span data-tr>filtre:</span><span data-en hidden>filter:</span>
+        <span class="count" id="filterTag"></span>
+        <span class="count" id="filterCount"></span>
+        <button id="clearFilter" data-tr>temizle</button>
+        <button id="clearFilterEn" data-en hidden>clear</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="row">
+    <h2 class="lbl">
+      <span class="num">03</span>
+      <span data-tr>seçilmiş işler</span><span data-en hidden>selected work</span>
+    </h2>
+    <div class="body">
+      <div class="work">
+
+        <div class="item lead" data-stack="laravel php alpine tailwind mysql multitenant sanctum eloquent internal-tools end-to-end domain industrial field-ux">
+          <div class="n">01<span class="of"> / 09</span></div>
+          <div>
+            <h3 data-tr>çok modüllü erp/mes platformu</h3>
+            <h3 data-en hidden>multi-module erp/mes platform</h3>
+            <p data-tr>Bir endüstriyel işletmenin teklif, sipariş, üretim planlama ve sevkiyat akışları birbirinden kopuk araçlarda yönetiliyordu; satışın ne kesti üretim bilmiyordu, stok güncelleme elle yapılıyordu. Bu sistemleri tek bir platforma taşıdım: bugün satış teklifte fatura keser, üretim planlamayı oradan görür, sevkiyat çıkışı stoktan otomatik düşer. Birden fazla şirketi, üç para birimini ve satır bazlı tam denetim izini aynı anda taşıyacak şekilde tasarladım. Multi-tenant mimari, snapshot fiyat geçmişi ve optimistic locking ile kurumsal ölçeğe hazır bir Laravel yığını — halen geliştiriyorum.</p>
+            <p data-en hidden>An industrial business was managing its quotation, order, production and shipping flows across disconnected tools — sales had no visibility into what production was running, and stock updates were done by hand. I unified these into a single platform: today, sales generates invoices from quotes, production reads its plan from the same system, and shipped goods are deducted from stock automatically. The platform is built to carry multiple companies, three currencies, and a row-level audit trail simultaneously. A modern Laravel stack — multi-tenant, snapshot-priced, optimistically locked for concurrency — still in active development.</p>
+          </div>
+          <div class="stack">laravel 12 · php 8.3 · alpine · tailwind · mysql · multi-tenant · sanctum</div>
+        </div>
+
+        <div class="item lead" data-stack="laravel php vue inertia ts tailwind postgres redis eloquent tspl qr industrial internal-tools end-to-end domain field-ux">
+          <div class="n">02<span class="of"> / 09</span></div>
+          <div>
+            <h3 data-tr>endüstriyel depo yönetim sistemi</h3>
+            <h3 data-en hidden>industrial warehouse management system</h3>
+            <p data-tr>Fabrika deposunda biri el terminaliyle rafta, diğeri masaüstünde ofiste çalışıyor — ikisi de aynı veriyi aynı anda görüyor. Ürünün mal kabulden teslim doğrulamasına kadar her adımını QR koduyla izlenebilir hale getirdim; etiket yazıcıya doğrudan TSPL çıktısı, tabletlerin pil durumunu anlık izleyen cihaz telemetrisi ve internet kesildiğinde çevrimdışı çalışma kapasitesi buna dahil. Cihaz türünü User-Agent üzerinden tespit eden katman, mobil ve masaüstü rotaları otomatik ayırıyor; 16 tablolu domain modeli tüm akışı tek bir veri kümesinde birleştiriyor.</p>
+            <p data-en hidden>On the factory floor, one person is scanning products at a shelf with a handheld terminal while another is working at a desktop in the office — both see the same data, live. I made every step traceable by QR code, from goods receiving to delivery confirmation, with direct TSPL output to the industrial label printer, live battery telemetry from tablets, and offline capability when the network drops. A User-Agent detection layer automatically routes mobile and desktop users to separate views; a 16-table domain model holds the entire flow in a single dataset.</p>
+          </div>
+          <div class="stack">laravel 12 · vue 3 · inertia · ts · postgres · redis · pwa · tspl</div>
+        </div>
+
+        <div class="item" data-stack="laravel php vue ts tailwind postgres sanctum queue eloquent internal-tools end-to-end domain">
+          <div class="n">03<span class="of"> / 09</span></div>
+          <div>
+            <h3 data-tr>konteyner takip platformu</h3>
+            <h3 data-en hidden>container tracking platform</h3>
+            <p data-tr>Sevkiyatları, konteynerleri ve olayları üç katmanlı bir veri modelinde takip eden bir deniz yolu konteyner izleme platformu — üçüncü taraf API'sini saran servis katmanı, kuyruğa alınmış bir job ile aktif konteynerleri altı saatte bir otomatik günceller; müşteri ve sevkiyat bazlı ETA raporlaması, Leaflet üzerinde canlı konum görselleştirmesi ve ISO 6346 uyumlu konteyner numarası doğrulaması buna eşlik ediyor.</p>
+            <p data-en hidden>An ocean container tracking platform that models shipments, containers and event lifecycles in a three-tier data model — a service layer wraps a third-party API, and a queued job automatically batch-refreshes active containers every six hours; customer- and shipment-level ETA reporting, live position rendering on Leaflet, and ISO 6346-compliant container number validation come with it.</p>
+          </div>
+          <div class="stack">laravel · vue 3 · ts · pinia · leaflet · sanctum · queue jobs</div>
+        </div>
+
+        <div class="item lead" data-stack="next react ts tailwind drizzle sqlite vercel-ai multi-provider design-system internal-tools end-to-end">
+          <div class="n">04<span class="of"> / 09</span></div>
+          <div>
+            <h3 data-tr>ai destekli iç analiz aracı</h3>
+            <h3 data-en hidden>ai-powered internal analysis tool</h3>
+            <p data-tr>Şirkete özel araştırma ve mülakat süreçlerini standartlaştırmak için kendi analiz aracımı kurdum: sohbet tabanlı sorgulama, yapılandırılmış mülakat akışları ve sonuçları doğrudan tarayıcıda PDF olarak verme kapasitesiyle. Anthropic ve Google modellerine tek arayüzden erişen Vercel AI SDK, verinin dışarı çıkmaması için yerel SQLite kalıcılığı. Admin ve kullanıcı alanları ayrı route gruplarında; shadcn/ui ve Tailwind v4 üzerine sıkı bir tasarım sistemi — Drizzle ORM ile tip güvenli şema yönetimi bunların altında çalışıyor.</p>
+            <p data-en hidden>I built an internal analysis tool to standardise research and interview workflows: chat-based querying, structured interview flows, and the ability to export results as a PDF directly in the browser. The Vercel AI SDK gives a single interface to both Anthropic and Google models; data stays local on SQLite for privacy. Admin and user areas are split into separate route groups; a tight design system sits on shadcn/ui and Tailwind v4, with a type-safe schema managed via Drizzle ORM underneath.</p>
+          </div>
+          <div class="stack">next.js 16 · react 19 · drizzle · sqlite · vercel ai sdk · shadcn · tailwind 4</div>
+        </div>
+
+        <div class="item" data-stack="node multi-provider agent-orch end-to-end">
+          <div class="n">05<span class="of"> / 09</span></div>
+          <div>
+            <h3 data-tr>çok-ajanlı araştırma sistemi</h3>
+            <h3 data-en hidden>multi-agent research system</h3>
+            <p data-tr>Sektörel araştırmaları paralel ajanlara dağıtan, bulguları çapraz doğrulayan ve nihai raporu tek bir özetleyici ajanda birleştiren bir araştırma altyapısı — kaynak güvenirlik filtresi yanıltıcı siteleri eliyor, model düzeyinde fail-over ve açıkça modellenmiş ajan rolleri (toplayıcı, doğrulayıcı, özetleyici) doğrulanmamış bilginin rapora girmesini engelliyor.</p>
+            <p data-en hidden>A research infrastructure that fans sector research out to parallel agents, cross-verifies findings, and converges the final report through a single synthesising agent — a source-credibility filter screens out misleading sites, model-level fail-over and explicitly modelled agent roles (collector, verifier, synthesiser) ensure unverified claims never make it into the report.</p>
+          </div>
+          <div class="stack">node · llm orchestration · multi-source verification</div>
+        </div>
+
+        <div class="item" data-stack="laravel php livewire tailwind eloquent internal-tools end-to-end domain">
+          <div class="n">06<span class="of"> / 09</span></div>
+          <div>
+            <h3 data-tr>not ve görev uygulaması</h3>
+            <h3 data-en hidden>notes & tasks app</h3>
+            <p data-tr>Defter–not–etiket çekirdeği üzerine görev/alt-görev ve takvim olaylarının da eklendiği zengin metin tabanlı bir not uygulaması — soft delete destekli geri dönüşüm kutusu, dosya/görsel yükleme ve dışa aktarım ile Livewire tabanlı sunucu-driven reaktivite sayesinde editör sayfa yenilemeden çalışıyor; modüler mimari her özelliği 200 satır altı dosyalarda tutuyor.</p>
+            <p data-en hidden>A rich-text notes and tasks app layered on a notebook–note–tag core, extended with tasks, subtasks and calendar events — a soft-delete recycle bin with bulk restore, file and image uploads, exports, and Livewire-driven server reactivity that keeps the editor running without page reloads; modular architecture holds every feature in files under 200 lines.</p>
+          </div>
+          <div class="stack">laravel · livewire · tailwind · soft deletes</div>
+        </div>
+
+        <div class="item" data-stack="astro tailwind alpine cloudflare brand design-system typography internal-tools end-to-end">
+          <div class="n">07<span class="of"> / 09</span></div>
+          <div>
+            <h3 data-tr>çok dilli kurumsal web sitesi</h3>
+            <h3 data-en hidden>multilingual corporate site</h3>
+            <p data-tr>CMS olmadan çok dilli içerik yönetimini mümkün kılmak için Astro'nun island mimarisini kullandım: içerik Markdown ve Content Collections ile tip güvenli yönetiliyor, ihtiyaç duyulan yerlerde Alpine.js mikro etkileşim ekliyor; Cloudflare Pages üzerinde test ve prod için ayrı dağıtım scriptleri, marka tipografi ve renk sistemi tasarımdan üretime token olarak aktarılmış.</p>
+            <p data-en hidden>I used Astro's island architecture to make multilingual content management work without a CMS: content is type-safely managed through Markdown and Content Collections, Alpine.js adds micro-interactions only where needed; separate deploy scripts for test and prod environments on Cloudflare Pages, brand typography and colour system carried from design into production as tokens.</p>
+          </div>
+          <div class="stack">astro 6 · tailwind · alpine · cloudflare pages · content collections</div>
+        </div>
+
+        <div class="item" data-stack="claude-code agent-orch design-system end-to-end">
+          <div class="n">08<span class="of"> / 09</span></div>
+          <div>
+            <h3 data-tr>25 uzman ajandan oluşan ui/ux ekibi</h3>
+            <h3 data-en hidden>25-strong specialist ui/ux agent roster</h3>
+            <p data-tr>Bir UI/UX brief'ini araştırmadan teslime kadar bağımsız ilerletebilen, Claude Code üzerinde kurulu üç katmanlı bir ajan orkestrasyonu — direktör ajan brief'i parçalar ve araştırma, bilgi mimarisi, tipografi, mikrokopya, erişilebilirlik gibi uzmanlara sırayla devreder; her ajan kendi araç setine ve yetki kapsamına sahip, çıktıyı bir teslim ajanı konsolide eder.</p>
+            <p data-en hidden>A three-tier agent orchestration on Claude Code that can take a UI/UX brief and walk it through to a delivery-ready package on its own — a director agent decomposes the brief and hands tasks sequentially to specialists in research, IA, typography, microcopy and accessibility; each agent has its own toolset and permission scope, and a delivery agent consolidates the output.</p>
+          </div>
+          <div class="stack">claude code · agent orchestration · markdown spec</div>
+        </div>
+
+        <div class="item" data-stack="linux docker caddy tailscale systemd internal-tools end-to-end">
+          <div class="n">09<span class="of"> / 09</span></div>
+          <div>
+            <h3 data-tr>self-hosted altyapı</h3>
+            <h3 data-en hidden>self-hosted infrastructure</h3>
+            <p data-tr>Tüm geliştirme projelerimi taşıyan kişisel Linux sunucu: Tailscale private ağı dışına kapalı, Caddy ile otomatik HTTPS reverse proxy, Docker ile izole servisler ve sıcaklığa göre devreye giren bir systemd fan kontrol servisi — eza, bat, ripgrep ve fzf ile tutarlı bir geliştirici ortamı.</p>
+            <p data-en hidden>A personal Linux server running all my development projects: off the public internet behind a Tailscale private network, Caddy as an automatic-HTTPS reverse proxy, Docker for isolated services, and a systemd fan control service that responds to temperature — a consistent developer environment tuned with eza, bat, ripgrep and fzf.</p>
+          </div>
+          <div class="stack">linux · systemd · docker · caddy · tailscale</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    // tag filter — orijinal davranış birebir korundu
+    (function () {
+      let activeTag = null;
+      const items = document.querySelectorAll('.item');
+      const chips = document.querySelectorAll('.chip');
+      const filterBar = document.getElementById('filterBar');
+      const filterTag = document.getElementById('filterTag');
+      const filterCount = document.getElementById('filterCount');
+      const clearBtn = document.getElementById('clearFilter');
+      const clearBtnEn = document.getElementById('clearFilterEn');
+
+      chips.forEach((c) => c.setAttribute('aria-pressed', 'false'));
+
+      function applyFilter(tag) {
+        if (activeTag === tag) { clearFilter(); return; }
+        activeTag = tag;
+        chips.forEach((c) => {
+          const on = c.dataset.tag === tag;
+          c.classList.toggle('on', on);
+          c.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        let matches = 0;
+        items.forEach((i) => {
+          const tags = (i.dataset.stack || '').split(' ');
+          const match = tags.includes(tag);
+          i.classList.toggle('dim', !match);
+          if (match) { i.removeAttribute('inert'); matches++; }
+          else i.setAttribute('inert', '');
+        });
+        const label = document.querySelector('.chip[data-tag="' + tag + '"]').innerText.trim();
+        filterTag.textContent = '« ' + label + ' »';
+        filterCount.textContent = matches + ' / ' + items.length;
+        filterBar.classList.add('active');
+        const r = filterBar.getBoundingClientRect();
+        if (r.top < 0 || r.bottom > window.innerHeight) {
+          filterBar.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+      function clearFilter() {
+        activeTag = null;
+        chips.forEach((c) => { c.classList.remove('on'); c.setAttribute('aria-pressed', 'false'); });
+        items.forEach((i) => { i.classList.remove('dim'); i.removeAttribute('inert'); });
+        filterBar.classList.remove('active');
+      }
+
+      chips.forEach((c) => c.addEventListener('click', () => applyFilter(c.dataset.tag)));
+      clearBtn.addEventListener('click', clearFilter);
+      clearBtnEn.addEventListener('click', clearFilter);
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') clearFilter(); });
+    })();
+  </script>
+</BaseLayout>

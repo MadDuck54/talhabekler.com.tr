@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const all = await getCollection('blog');
+const posts = all
+  .filter((p) => import.meta.env.PROD ? !p.data.draft : true)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const fmt = (d: Date) =>
+  `${d.getFullYear()}·${String(d.getMonth() + 1).padStart(2, '0')}·${String(d.getDate()).padStart(2, '0')}`;
+
+// tüm tag'leri tarihe göre yazılarda görünme sırasıyla topla
+const tags: string[] = [];
+for (const p of posts) {
+  for (const t of p.data.tags) if (!tags.includes(t)) tags.push(t);
+}
+
+const count = posts.length;
+const blogJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: 'Talha Bekler — blog',
+  url: 'https://talhabekler.com.tr/blog',
+  inLanguage: 'tr-TR',
+  author: { '@type': 'Person', name: 'Talha Bekler', url: 'https://talhabekler.com.tr' },
+};
+---
+
+<BaseLayout
+  title="blog — Talha Bekler"
+  description="Notlar, denemeler ve üretim hatları. ERP, AI iş akışları, self-hosted altyapı ve endüstriyel donanım üzerine yazılar."
+  ogType="website"
+  section="blog"
+  breadcrumb="blog/talha-bekler"
+  metaTr={`${count} yazı`}
+  metaEn={`${count} ${count === 1 ? 'post' : 'posts'}`}
+  showLangToggle={false}
+  jsonLd={blogJsonLd}
+  footOkTr="liste sonu"
+  footOkEn="end of list"
+>
+  <section class="blog-hero">
+    <div class="meta">
+      <span>belge</span>
+      <span class="v">BLOG—LIST</span>
+      <span>sayı</span>
+      <span class="v">{count}</span>
+      <span>besleme</span>
+      <span class="v"><a href="/rss.xml" style="color:var(--accent)">rss</a></span>
+    </div>
+    <h1>yazılar</h1>
+    <p class="desc">notlar, denemeler, üretim hatları</p>
+  </section>
+
+  {tags.length > 0 && (
+    <div class="tag-bar">
+      <span class="lbl">filtre:</span>
+      <button class="chip on" data-tag="" data-pressed="true">hepsi</button>
+      {tags.map((t) => (
+        <button class="chip" data-tag={t}>{t}</button>
+      ))}
+    </div>
+  )}
+
+  <div class="posts">
+    {posts.length === 0 ? (
+      <p style="padding: 48px 0; color: var(--mute); font-size: 13px;">
+        Henüz yazı yok. <code>src/content/blog/</code> altına markdown ekle.
+      </p>
+    ) : posts.map((p) => (
+      <a
+        class={`post-row${p.data.draft ? ' draft' : ''}`}
+        href={`/blog/${p.id}`}
+        data-tags={p.data.tags.join(' ')}
+      >
+        <span class="date">{fmt(p.data.date)}</span>
+        <span class="title">{p.data.title}</span>
+        <span class="tags">{p.data.tags.join(' · ')}</span>
+      </a>
+    ))}
+  </div>
+
+  <script is:inline>
+    // /blog tag filtresi
+    (function () {
+      const chips = document.querySelectorAll('.tag-bar .chip');
+      const rows = document.querySelectorAll('.post-row');
+      let active = '';
+
+      function apply(tag) {
+        active = tag;
+        chips.forEach((c) => c.classList.toggle('on', (c.dataset.tag || '') === tag));
+        rows.forEach((r) => {
+          const tags = (r.dataset.tags || '').split(' ');
+          const match = !tag || tags.includes(tag);
+          r.style.display = match ? '' : 'none';
+        });
+      }
+      chips.forEach((c) =>
+        c.addEventListener('click', () => apply(c.dataset.tag || '')),
+      );
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && active) apply('');
+      });
+    })();
+  </script>
+</BaseLayout>

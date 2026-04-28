@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const all = await getCollection('blog', ({ data }) =>
+    import.meta.env.PROD ? !data.draft : true,
+  );
+  // tarihe göre eskiden yeniye sırala — docNumber için
+  const asc = [...all].sort(
+    (a, b) => a.data.date.getTime() - b.data.date.getTime(),
+  );
+  // tarihe göre yeniden eskiye — prev/next için
+  const desc = [...all].sort(
+    (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+  );
+
+  return asc.map((entry, i) => {
+    const idx = desc.findIndex((p) => p.id === entry.id);
+    const newer = idx > 0 ? desc[idx - 1] : null;
+    const older = idx < desc.length - 1 ? desc[idx + 1] : null;
+    return {
+      params: { slug: entry.id },
+      props: {
+        entry,
+        docNumber: entry.data.docNumber ?? i + 1,
+        newer,
+        older,
+      },
+    };
+  });
+}
+
+interface Props {
+  entry: CollectionEntry<'blog'>;
+  docNumber: number;
+  newer: CollectionEntry<'blog'> | null;
+  older: CollectionEntry<'blog'> | null;
+}
+
+const { entry, docNumber, newer, older } = Astro.props;
+const { Content, remarkPluginFrontmatter } = await render(entry);
+
+const fmt = (d: Date) =>
+  `${d.getFullYear()}·${String(d.getMonth() + 1).padStart(2, '0')}·${String(d.getDate()).padStart(2, '0')}`;
+
+const docNo = String(docNumber).padStart(3, '0');
+const dateStr = fmt(entry.data.date);
+const updatedStr = entry.data.updated ? fmt(entry.data.updated) : null;
+
+// kaba okuma süresi — 200 kelime/dk, dokümanın ham markdown body'si
+const wordCount = entry.body?.split(/\s+/).filter(Boolean).length ?? 0;
+const readMin = Math.max(1, Math.round(wordCount / 200));
+
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: entry.data.title,
+  description: entry.data.lede ?? entry.data.title,
+  datePublished: entry.data.date.toISOString(),
+  dateModified: (entry.data.updated ?? entry.data.date).toISOString(),
+  inLanguage: 'tr-TR',
+  author: { '@type': 'Person', name: 'Talha Bekler', url: 'https://talhabekler.com.tr' },
+  url: `https://talhabekler.com.tr/blog/${entry.id}`,
+  keywords: entry.data.tags.join(', '),
+};
+---
+
+<BaseLayout
+  title={`${entry.data.title} — Talha Bekler`}
+  description={entry.data.lede ?? entry.data.title}
+  ogType="article"
+  section="blog"
+  breadcrumb={`blog/talha-bekler/${entry.id}`}
+  metaTr={`${readMin} dk · ${dateStr}`}
+  metaEn={`${readMin} min · ${dateStr}`}
+  showLangToggle={false}
+  jsonLd={articleJsonLd}
+  footOkTr="yazı sonu"
+  footOkEn="end of post"
+>
+  {entry.data.draft && (
+    <meta slot="head" name="robots" content="noindex,nofollow" />
+  )}
+
+  <article class="post">
+    <div class="post-meta">
+      <span>belge</span>
+      <span class="v">BLOG—{docNo}</span>
+      <span>tarih</span>
+      <span class="v">{dateStr}</span>
+      {updatedStr && (
+        <>
+          <span>güncel</span>
+          <span class="v">{updatedStr}</span>
+        </>
+      )}
+      <span>okuma</span>
+      <span class="v">{readMin} dk</span>
+      {entry.data.tags.length > 0 && (
+        <>
+          <span>etiket</span>
+          <span class="v tag">{entry.data.tags.join(' · ')}</span>
+        </>
+      )}
+    </div>
+    <header class="post-head">
+      <h1>{entry.data.title}</h1>
+      {entry.data.lede && <p class="lede">{entry.data.lede}</p>}
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+
+  {(older || newer) && (
+    <nav class="post-nav" aria-label="Yazılar arasında dolaşma">
+      <div>
+        {older ? (
+          <a class="nav-prev" href={`/blog/${older.id}`}>
+            ← önceki
+            <span class="nav-title">{older.data.title}</span>
+          </a>
+        ) : <span></span>}
+      </div>
+      <div>
+        {newer ? (
+          <a class="nav-next" href={`/blog/${newer.id}`}>
+            sonraki →
+            <span class="nav-title">{newer.data.title}</span>
+          </a>
+        ) : <span></span>}
+      </div>
+    </nav>
+  )}
+</BaseLayout>

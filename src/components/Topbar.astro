@@ -1,0 +1,41 @@
+---
+export interface Props {
+  section: 'cv' | 'blog';
+  breadcrumb: string;
+  metaTr?: string;
+  metaEn?: string;
+  showLangToggle?: boolean;
+}
+const {
+  section,
+  breadcrumb,
+  metaTr,
+  metaEn,
+  showLangToggle = true,
+} = Astro.props;
+---
+<header class="topbar grid12">
+  <div class="left">
+    <span class="id">{breadcrumb}</span>
+    {(metaTr || metaEn) && <span class="sep">/</span>}
+    {metaTr && <span data-tr>{metaTr}</span>}
+    {metaEn && <span data-en hidden>{metaEn}</span>}
+  </div>
+  <div class="right">
+    <nav class="nav" aria-label="Bölümler">
+      <a href="/" class={section === 'cv' ? 'on' : ''}>cv</a>
+      <span class="sl">·</span>
+      <a href="/blog" class={section === 'blog' ? 'on' : ''}>blog</a>
+    </nav>
+    {showLangToggle && (
+      <>
+        <button class="on" data-set="tr">TR</button>
+        <span class="sl">/</span>
+        <button data-set="en">EN</button>
+        <span class="sl">·</span>
+      </>
+    )}
+    <button onclick="window.print()" style="color:var(--dim)" data-tr title="Yazdır / PDF olarak kaydet">yazdır</button>
+    <button onclick="window.print()" style="color:var(--dim)" data-en hidden title="Print / Save as PDF">print</button>
+  </div>
+</header>

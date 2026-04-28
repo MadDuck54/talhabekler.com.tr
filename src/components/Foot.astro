@@ -1,0 +1,14 @@
+---
+export interface Props {
+  okTr?: string;
+  okEn?: string;
+}
+const { okTr = 'belge sonu', okEn = 'end of document' } = Astro.props;
+---
+<footer class="foot">
+  <span class="ok" data-tr>{okTr}</span>
+  <span class="ok" data-en hidden>{okEn}</span>
+  <span>
+    <a href="mailto:Talhabekler@outlook.com">Talhabekler@outlook.com</a>
+  </span>
+</footer>
