@@ -296,6 +296,22 @@ main {
 .item.lead .n { color: var(--accent); }
 .item.lead h3 { font-size: 22px; }
 
+/* ── CV item → blog yazısı referans linki ─── */
+.write-up {
+  display: inline-block;
+  margin-left: 6px;
+  color: var(--mute);
+  font-size: 11px;
+  letter-spacing: .04em;
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 1px dashed var(--rule-2);
+  transition: color .15s, border-color .15s;
+}
+.write-up::before { content: "// "; color: var(--rule-2); }
+.write-up:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.write-up:hover::before { color: var(--accent); }
+
 /* ── blog: post listesi (tek satır) ─── */
 .posts {
   display: grid;
@@ -426,10 +442,20 @@ main {
 .prose li { margin-top: .4em; }
 .prose li::marker { color: var(--mute); }
 .prose blockquote {
-  border-left: 2px solid var(--accent);
-  padding-left: 16px;
-  color: var(--dim);
+  background: #ffffff;
+  color: #0a0a0a;
+  border-left: 3px solid var(--accent);
+  padding: 16px 20px;
   font-style: italic;
+  font-size: 0.95em;
+  line-height: 1.6;
+  margin-left: 0;
+  margin-right: 0;
+}
+.prose blockquote a { color: var(--accent); border-bottom-color: rgba(255, 77, 46, 0.4); }
+.prose blockquote :not(pre) > code {
+  color: #c93b1f;
+  border-bottom-color: rgba(0, 0, 0, 0.15);
 }
 .prose hr {
   border: 0;
@@ -605,7 +631,7 @@ main {
 
 /* ── print ──────────────────────────── */
 @media print {
-  .gridlines, .topbar, .post-nav, .tag-bar { display: none; }
+  .gridlines, .topbar, .post-nav, .tag-bar, .write-up { display: none; }
   main { padding: 0; }
   .item.dim { opacity: 1; }
   .filter-bar { display: none !important; }
