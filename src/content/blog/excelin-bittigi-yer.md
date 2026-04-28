@@ -102,4 +102,4 @@ Veri bütünlüğü olmazsa, ne kadar zarif tasarladığın "milyonluk" yazılı
 
 "Bitti" yok. Belki bir yıl daha böyle gider, belki üç. Sistemin örülmesi, sahada test edilmesi, kullanıcı alışkanlıklarının dönüşmesi, "ilk giriş" disiplininin yerleşmesi — hiçbiri bir release tarihi olan iş değil. Yazılımı bitirirsin, sahadan dönüş gelir, geri dönüp düzeltirsin. Sonra yine.
 
-Belki ana ders bu: bir fabrikayı yazmak, bir kerelik bir iş değil. Hep birlikte gelişen, sahaya gömülü, kalıcı bir ilişki.
+Belki ana ders bu: bir fabrikayı yazmak, bir kerelik bir iş değil. Hep birlikte gelişen, sahaya gömülü, kalıcı bir ilişki. Bu sistemin yanına ördüğüm bağımsız depo sistemini [*Kerestenin günlüğü*](/blog/kerestenin-gunlugu) yazısında anlattım.
