@@ -1,6 +1,6 @@
 ---
 title: "Kerestenin günlüğü"
-lede: Önceki yazıdaki ERP'yi kurarken anladım ki bazı işler kendi başına bir sistemin işi. Kereste ithalatı başlayınca bu somutlaştı: yüzlerce hammaddeyi ürün bazında izlemek, el terminaliyle ölçmek, QR'la takip etmek — sıfırdan kurulması gereken ayrı bir depo sistemi. Bu yazı bir kerestenin sahaya inişinden müşteri kamyonuna binişine kadarki yolunu ve aldığım yazılım kararlarını anlatır.
+lede: "Önceki yazıdaki ERP'yi kurarken anladım ki bazı işler kendi başına bir sistemin işi. Kereste ithalatı başlayınca bu somutlaştı: yüzlerce hammaddeyi ürün bazında izlemek, el terminaliyle ölçmek, QR'la takip etmek — sıfırdan kurulması gereken ayrı bir depo sistemi. Bu yazı bir kerestenin sahaya inişinden müşteri kamyonuna binişine kadarki yolunu ve aldığım yazılım kararlarını anlatır."
 metaDescription: "Konteynerden müşteri kamyonuna: el terminali, QR ve PWA ile sıfırdan kurduğum kereste depo sistemi — yazılım kararları, donanım seçimi, saha akışı."
 date: 2026-04-28
 tags: [depo, wms, pwa, saha]
