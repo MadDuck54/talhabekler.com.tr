@@ -434,7 +434,7 @@ main {
 .prose a {
   color: var(--accent);
   text-decoration: none;
-  border-bottom: 1px solid var(--rule-2);
+  border-bottom: 1px solid rgba(255, 77, 46, 0.35);
   transition: border-color .15s;
 }
 .prose a:hover { border-bottom-color: var(--accent); }
