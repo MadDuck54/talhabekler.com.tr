@@ -2,12 +2,22 @@
 export interface Props {
   okTr?: string;
   okEn?: string;
+  /** sayfa statik dili — verilirse data-tr/data-en swap yerine doğrudan o dilin metnini render eder */
+  lang?: 'tr' | 'en';
 }
-const { okTr = 'belge sonu', okEn = 'end of document' } = Astro.props;
+const { okTr = 'belge sonu', okEn = 'end of document', lang } = Astro.props;
 ---
 <footer class="foot">
-  <span class="ok" data-tr>{okTr}</span>
-  <span class="ok" data-en hidden>{okEn}</span>
+  {lang === 'en' ? (
+    <span class="ok">{okEn}</span>
+  ) : lang === 'tr' ? (
+    <span class="ok">{okTr}</span>
+  ) : (
+    <>
+      <span class="ok" data-tr>{okTr}</span>
+      <span class="ok" data-en hidden>{okEn}</span>
+    </>
+  )}
   <span>
     <a href="mailto:Talhabekler@outlook.com">Talhabekler@outlook.com</a>
   </span>

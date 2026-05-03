@@ -5,6 +5,9 @@ metaDescription: "Konteynerden müşteri kamyonuna: el terminali, QR ve PWA ile 
 date: 2026-04-28
 tags: [depo, wms, pwa, saha]
 docNumber: 3
+lang: tr
+translations:
+  en: the-lumber-log
 ---
 
 Bir önceki [yazıda](/blog/excelin-bittigi-yer) devraldığım ERP'yi modern bir yığına nasıl taşıdığımı, üstüne sahada eksik kalan üretim zincirini sıfırdan nasıl ördüğümü anlattım. Bu yazı onun devamı sayılır, çünkü o ERP'yi kurarken anladığım bir şey var: bazı işler ERP'nin işi değil. Bu projeyi de o farkındalık doğurdu.

@@ -5,6 +5,8 @@ export interface Props {
   metaTr?: string;
   metaEn?: string;
   showLangToggle?: boolean;
+  /** sayfa statik dili — verilirse data-tr/data-en swap yerine doğrudan o dilin metnini render eder */
+  lang?: 'tr' | 'en';
 }
 const {
   section,
@@ -12,17 +14,27 @@ const {
   metaTr,
   metaEn,
   showLangToggle = true,
+  lang,
 } = Astro.props;
+
+// statik dil verildiyse meta tek dilde sabit
+const staticMeta = lang ? (lang === 'en' ? metaEn : metaTr) : undefined;
 ---
 <header class="topbar grid12">
   <div class="left">
     <span class="id">{breadcrumb}</span>
     {(metaTr || metaEn) && <span class="sep">/</span>}
-    {metaTr && <span data-tr>{metaTr}</span>}
-    {metaEn && <span data-en hidden>{metaEn}</span>}
+    {lang ? (
+      staticMeta && <span>{staticMeta}</span>
+    ) : (
+      <>
+        {metaTr && <span data-tr>{metaTr}</span>}
+        {metaEn && <span data-en hidden>{metaEn}</span>}
+      </>
+    )}
   </div>
   <div class="right">
-    <nav class="nav" aria-label="Bölümler">
+    <nav class="nav" aria-label={lang === 'en' ? 'Sections' : 'Bölümler'}>
       <a href="/" class={section === 'cv' ? 'on' : ''}>cv</a>
       <span class="sl">·</span>
       <a href="/blog" class={section === 'blog' ? 'on' : ''}>blog</a>
@@ -35,7 +47,15 @@ const {
         <span class="sl">·</span>
       </>
     )}
-    <button onclick="window.print()" style="color:var(--dim)" data-tr title="Yazdır / PDF olarak kaydet">yazdır</button>
-    <button onclick="window.print()" style="color:var(--dim)" data-en hidden title="Print / Save as PDF">print</button>
+    {lang === 'en' ? (
+      <button onclick="window.print()" style="color:var(--dim)" title="Print / Save as PDF">print</button>
+    ) : lang === 'tr' ? (
+      <button onclick="window.print()" style="color:var(--dim)" title="Yazdır / PDF olarak kaydet">yazdır</button>
+    ) : (
+      <>
+        <button onclick="window.print()" style="color:var(--dim)" data-tr title="Yazdır / PDF olarak kaydet">yazdır</button>
+        <button onclick="window.print()" style="color:var(--dim)" data-en hidden title="Print / Save as PDF">print</button>
+      </>
+    )}
   </div>
 </header>

@@ -16,6 +16,10 @@ const blog = defineCollection({
     draft: z.boolean().default(false),
     /** belge numarası — başlığa BLOG—NNN olarak işlenir; verilmezse otomatik */
     docNumber: z.number().int().positive().optional(),
+    /** yazı dili — default 'tr' */
+    lang: z.enum(['tr', 'en']).default('tr'),
+    /** diğer dillerdeki versiyonların slug'ı: { en: 'the-lumber-log' } */
+    translations: z.record(z.string(), z.string()).optional(),
   }),
 });
 

@@ -8,26 +8,41 @@ export async function getStaticPaths() {
   const all = await getCollection('blog', ({ data }) =>
     import.meta.env.PROD ? !data.draft : true,
   );
-  // tarihe göre eskiden yeniye sırala — docNumber için
+  // tarihe göre eskiden yeniye sırala — docNumber için (dil bazında ayrı sayaç)
   const asc = [...all].sort(
     (a, b) => a.data.date.getTime() - b.data.date.getTime(),
   );
-  // tarihe göre yeniden eskiye — prev/next için
-  const desc = [...all].sort(
-    (a, b) => b.data.date.getTime() - a.data.date.getTime(),
-  );
+  const docCounter: Record<string, number> = {};
 
-  return asc.map((entry, i) => {
-    const idx = desc.findIndex((p) => p.id === entry.id);
-    const newer = idx > 0 ? desc[idx - 1] : null;
-    const older = idx < desc.length - 1 ? desc[idx + 1] : null;
+  return asc.map((entry) => {
+    const lang = entry.data.lang ?? 'tr';
+    docCounter[lang] = (docCounter[lang] ?? 0) + 1;
+
+    // prev/next yalnızca aynı dilden — yeni-eski sıralı
+    const sameLang = [...all]
+      .filter((p) => (p.data.lang ?? 'tr') === lang)
+      .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+    const idx = sameLang.findIndex((p) => p.id === entry.id);
+    const newer = idx > 0 ? sameLang[idx - 1] : null;
+    const older = idx < sameLang.length - 1 ? sameLang[idx + 1] : null;
+
+    // translations map — diğer dilin entry'sini ekle
+    const translationEntries: Record<string, { id: string; title: string }> = {};
+    if (entry.data.translations) {
+      for (const [code, slug] of Object.entries(entry.data.translations)) {
+        const target = all.find((p) => p.id === slug);
+        if (target) translationEntries[code] = { id: target.id, title: target.data.title };
+      }
+    }
+
     return {
       params: { slug: entry.id },
       props: {
         entry,
-        docNumber: entry.data.docNumber ?? i + 1,
+        docNumber: entry.data.docNumber ?? docCounter[lang],
         newer,
         older,
+        translationEntries,
       },
     };
   });
@@ -38,10 +53,14 @@ interface Props {
   docNumber: number;
   newer: CollectionEntry<'blog'> | null;
   older: CollectionEntry<'blog'> | null;
+  translationEntries: Record<string, { id: string; title: string }>;
 }
 
-const { entry, docNumber, newer, older } = Astro.props;
+const { entry, docNumber, newer, older, translationEntries } = Astro.props;
 const { Content, remarkPluginFrontmatter } = await render(entry);
+
+const lang = (entry.data.lang ?? 'tr') as 'tr' | 'en';
+const t = (tr: string, en: string) => (lang === 'en' ? en : tr);
 
 const fmt = (d: Date) =>
   `${d.getFullYear()}·${String(d.getMonth() + 1).padStart(2, '0')}·${String(d.getDate()).padStart(2, '0')}`;
@@ -63,6 +82,21 @@ const postUrl = `${SITE_URL}/blog/${entry.id}`;
 const ogImagePath = `/og/${entry.id}.png`;
 const ogImageAbsolute = `${SITE_URL}${ogImagePath}`;
 
+// hreflang alternates — yalnızca çevirisi olan post'larda. x-default = TR (ana dil).
+const langCanon = lang === 'en' ? 'en' : 'tr';
+const langSelfAndTranslations: Array<{ code: string; href: string }> = [
+  { code: langCanon, href: postUrl },
+  ...Object.entries(translationEntries).map(([code, target]) => ({
+    code,
+    href: `${SITE_URL}/blog/${target.id}`,
+  })),
+];
+const trVersion = langSelfAndTranslations.find((l) => l.code === 'tr');
+const alternates =
+  Object.keys(translationEntries).length > 0 && trVersion
+    ? [...langSelfAndTranslations, { code: 'x-default', href: trVersion.href }]
+    : [];
+
 const jsonLdGraph = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -73,7 +107,7 @@ const jsonLdGraph = {
       image: [ogImageAbsolute],
       datePublished: entry.data.date.toISOString(),
       dateModified: (entry.data.updated ?? entry.data.date).toISOString(),
-      inLanguage: 'tr-TR',
+      inLanguage: lang === 'en' ? 'en' : 'tr-TR',
       author,
       publisher: author,
       url: postUrl,
@@ -124,8 +158,10 @@ const jsonLdGraph = {
   metaEn={`${readMin} min · ${dateStr}`}
   showLangToggle={false}
   jsonLd={jsonLdGraph}
-  footOkTr="yazı sonu"
-  footOkEn="end of post"
+  footOkTr={t('yazı sonu', 'end of post')}
+  footOkEn={t('yazı sonu', 'end of post')}
+  htmlLang={lang}
+  alternates={alternates}
 >
   {entry.data.draft && (
     <meta slot="head" name="robots" content="noindex,nofollow" />
@@ -133,22 +169,37 @@ const jsonLdGraph = {
 
   <article class="post">
     <div class="post-meta">
-      <span>belge</span>
+      <span>{t('belge', 'doc')}</span>
       <span class="v">BLOG—{docNo}</span>
-      <span>tarih</span>
+      <span>{t('tarih', 'date')}</span>
       <span class="v">{dateStr}</span>
       {updatedStr && (
         <>
-          <span>güncel</span>
+          <span>{t('güncel', 'updated')}</span>
           <span class="v">{updatedStr}</span>
         </>
       )}
-      <span>okuma</span>
-      <span class="v">{readMin} dk</span>
+      <span>{t('okuma', 'read')}</span>
+      <span class="v">{readMin} {t('dk', 'min')}</span>
       {entry.data.tags.length > 0 && (
         <>
-          <span>etiket</span>
+          <span>{t('etiket', 'tags')}</span>
           <span class="v tag">{entry.data.tags.join(' · ')}</span>
+        </>
+      )}
+      {Object.keys(translationEntries).length > 0 && (
+        <>
+          <span>{t('çeviri', 'available in')}</span>
+          <span class="v">
+            {Object.entries(translationEntries).map(([code, target], i) => (
+              <>
+                {i > 0 && ' · '}
+                <a href={`/blog/${target.id}`} style="color:var(--accent)" title={target.title}>
+                  {code.toUpperCase()}
+                </a>
+              </>
+            ))}
+          </span>
         </>
       )}
     </div>
@@ -162,11 +213,11 @@ const jsonLdGraph = {
   </article>
 
   {(older || newer) && (
-    <nav class="post-nav" aria-label="Yazılar arasında dolaşma">
+    <nav class="post-nav" aria-label={t('Yazılar arasında dolaşma', 'Post navigation')}>
       <div>
         {older ? (
           <a class="nav-prev" href={`/blog/${older.id}`}>
-            ← önceki
+            ← {t('önceki', 'previous')}
             <span class="nav-title">{older.data.title}</span>
           </a>
         ) : <span></span>}
@@ -174,7 +225,7 @@ const jsonLdGraph = {
       <div>
         {newer ? (
           <a class="nav-next" href={`/blog/${newer.id}`}>
-            sonraki →
+            {t('sonraki', 'next')} →
             <span class="nav-title">{newer.data.title}</span>
           </a>
         ) : <span></span>}

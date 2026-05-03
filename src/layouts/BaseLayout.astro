@@ -29,6 +29,12 @@ export interface Props {
   footOkTr?: string;
   /** footer ok metni — EN */
   footOkEn?: string;
+  /** sayfanın varsayılan dili — html lang ve og:locale için */
+  htmlLang?: 'tr' | 'en';
+  /** og:locale — verilmezse htmlLang'den türetilir */
+  ogLocale?: string;
+  /** hreflang alternates — örn. [{ code: 'tr', href: '...' }, { code: 'en', href: '...' }, { code: 'x-default', href: '...' }] */
+  alternates?: Array<{ code: string; href: string }>;
 }
 
 const {
@@ -48,7 +54,12 @@ const {
   jsonLd,
   footOkTr = 'belge sonu',
   footOkEn = 'end of document',
+  htmlLang = 'tr',
+  ogLocale,
+  alternates = [],
 } = Astro.props;
+
+const resolvedOgLocale = ogLocale ?? (htmlLang === 'en' ? 'en_US' : 'tr_TR');
 
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site).toString();
 const ogImageUrl = new URL(ogImage, Astro.site).toString();
@@ -63,7 +74,7 @@ const jsonLdString = jsonLd
 ---
 
 <!doctype html>
-<html lang="tr">
+<html lang={htmlLang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -74,12 +85,16 @@ const jsonLdString = jsonLd
     <meta name="theme-color" content="#0a0a0a" />
     <link rel="canonical" href={canonicalUrl} />
 
+    {alternates.map((alt) => (
+      <link rel="alternate" hreflang={alt.code} href={alt.href} />
+    ))}
+
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={ogDescription} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content="Talha Bekler" />
-    <meta property="og:locale" content="tr_TR" />
+    <meta property="og:locale" content={resolvedOgLocale} />
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -115,9 +130,10 @@ const jsonLdString = jsonLd
         metaTr={metaTr}
         metaEn={metaEn}
         showLangToggle={showLangToggle}
+        lang={showLangToggle ? undefined : htmlLang}
       />
       <slot />
-      <Foot okTr={footOkTr} okEn={footOkEn} />
+      <Foot okTr={footOkTr} okEn={footOkEn} lang={showLangToggle ? undefined : htmlLang} />
     </main>
 
     <script is:inline>

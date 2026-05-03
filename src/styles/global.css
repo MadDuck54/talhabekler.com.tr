@@ -354,6 +354,18 @@ main {
 }
 .post-row:hover .title { color: var(--accent); }
 .post-row:hover .title::before { color: var(--accent); }
+.post-row .lang-chip {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 6px;
+  font-size: 9px;
+  letter-spacing: .12em;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 2px;
+  vertical-align: 2px;
+  font-weight: 500;
+}
 .post-row.draft .title::after {
   content: " [taslak]";
   color: var(--accent);

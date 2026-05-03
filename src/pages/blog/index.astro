@@ -69,17 +69,24 @@ const blogJsonLd = {
       <p style="padding: 48px 0; color: var(--mute); font-size: 13px;">
         Henüz yazı yok. <code>src/content/blog/</code> altına markdown ekle.
       </p>
-    ) : posts.map((p) => (
-      <a
-        class={`post-row${p.data.draft ? ' draft' : ''}`}
-        href={`/blog/${p.id}`}
-        data-tags={p.data.tags.join(' ')}
-      >
-        <span class="date">{fmt(p.data.date)}</span>
-        <span class="title">{p.data.title}</span>
-        <span class="tags">{p.data.tags.join(' · ')}</span>
-      </a>
-    ))}
+    ) : posts.map((p) => {
+      const postLang = (p.data.lang ?? 'tr') as 'tr' | 'en';
+      return (
+        <a
+          class={`post-row${p.data.draft ? ' draft' : ''}`}
+          href={`/blog/${p.id}`}
+          data-tags={p.data.tags.join(' ')}
+          data-lang={postLang}
+        >
+          <span class="date">{fmt(p.data.date)}</span>
+          <span class="title">
+            {p.data.title}
+            {postLang === 'en' && <span class="lang-chip">EN</span>}
+          </span>
+          <span class="tags">{p.data.tags.join(' · ')}</span>
+        </a>
+      );
+    })}
   </div>
 
   <script is:inline>
