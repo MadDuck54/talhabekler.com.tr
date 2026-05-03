@@ -1,14 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { author, SITE_URL } from '../lib/identity';
 
 const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: 'Talha Bekler',
+  name: author.name,
   jobTitle: 'Geliştirici',
   description:
     'AI iş akışları ve iç sistemler üzerine geliştirici. Üretim ve operasyon işletmeleri için ERP/MES, depo yönetim, ajan orkestrasyonu üretir.',
-  url: 'https://talhabekler.com.tr',
+  url: author.url,
+  image: `${SITE_URL}/og/default.png`,
+  sameAs: author.sameAs,
   knowsAbout: [
     'Laravel', 'PHP', 'Node.js', 'Vue.js', 'React', 'Next.js', 'Astro', 'TypeScript',
     'PostgreSQL', 'MySQL', 'Redis',

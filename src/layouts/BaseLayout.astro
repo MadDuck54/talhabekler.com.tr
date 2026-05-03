@@ -37,8 +37,8 @@ const {
   ogTitle = title,
   ogDescription = description,
   ogType = 'website',
-  ogImage,
-  ogImageAlt,
+  ogImage = '/og/default.png',
+  ogImageAlt = title,
   canonical,
   section,
   breadcrumb,
@@ -51,6 +51,15 @@ const {
 } = Astro.props;
 
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site).toString();
+const ogImageUrl = new URL(ogImage, Astro.site).toString();
+
+// JSON-LD breakout (`</script>`) ve HTML metakarakter koruması — defansif unicode-escape
+const jsonLdString = jsonLd
+  ? JSON.stringify(jsonLd)
+      .replace(/</g, '\\u003c')
+      .replace(/>/g, '\\u003e')
+      .replace(/&/g, '\\u0026')
+  : null;
 ---
 
 <!doctype html>
@@ -71,19 +80,16 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname.replace(/\/$/, '') 
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content="Talha Bekler" />
     <meta property="og:locale" content="tr_TR" />
-    {ogImage && (
-      <>
-        <meta property="og:image" content={ogImage} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        {ogImageAlt && <meta property="og:image:alt" content={ogImageAlt} />}
-      </>
-    )}
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
 
-    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={ogTitle} />
     <meta name="twitter:description" content={ogDescription} />
-    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate" type="application/rss+xml" title="Talha Bekler — blog" href="/rss.xml" />
@@ -95,8 +101,8 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname.replace(/\/$/, '') 
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
     />
 
-    {jsonLd && (
-      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {jsonLdString && (
+      <script type="application/ld+json" set:html={jsonLdString} />
     )}
   </head>
 

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { author, SITE_URL } from '../../lib/identity';
 
 const all = await getCollection('blog');
 const posts = all
@@ -21,9 +22,9 @@ const blogJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Blog',
   name: 'Talha Bekler — blog',
-  url: 'https://talhabekler.com.tr/blog',
+  url: `${SITE_URL}/blog`,
   inLanguage: 'tr-TR',
-  author: { '@type': 'Person', name: 'Talha Bekler', url: 'https://talhabekler.com.tr' },
+  author,
 };
 ---
 
