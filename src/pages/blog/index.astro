@@ -55,11 +55,11 @@ const blogJsonLd = {
   </section>
 
   {tags.length > 0 && (
-    <div class="tag-bar">
+    <div class="tag-bar" role="group" aria-label="Yazı etiketleri">
       <span class="lbl">filtre:</span>
-      <button class="chip on" data-tag="" data-pressed="true">hepsi</button>
+      <button class="chip on" data-tag="" aria-pressed="true">hepsi</button>
       {tags.map((t) => (
-        <button class="chip" data-tag={t}>{t}</button>
+        <button class="chip" data-tag={t} aria-pressed="false">{t}</button>
       ))}
     </div>
   )}
@@ -98,7 +98,11 @@ const blogJsonLd = {
 
       function apply(tag) {
         active = tag;
-        chips.forEach((c) => c.classList.toggle('on', (c.dataset.tag || '') === tag));
+        chips.forEach((c) => {
+          const isActive = (c.dataset.tag || '') === tag;
+          c.classList.toggle('on', isActive);
+          c.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
         rows.forEach((r) => {
           const tags = (r.dataset.tags || '').split(' ');
           const match = !tag || tags.includes(tag);
