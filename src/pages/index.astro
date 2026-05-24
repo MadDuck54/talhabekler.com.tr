@@ -159,8 +159,10 @@ const personJsonLd = {
         <div class="item lead" data-stack="laravel php alpine tailwind mysql multitenant sanctum eloquent internal-tools end-to-end domain industrial field-ux">
           <div class="n">01<span class="of" aria-hidden="true"> / 09</span></div>
           <div>
-            <h3 data-tr>çok modüllü erp/mes platformu</h3>
-            <h3 data-en hidden>multi-module erp/mes platform</h3>
+            <a class="item-title-link" href="/blog/excelin-bittigi-yer">
+              <h3 data-tr>çok modüllü erp/mes platformu</h3>
+              <h3 data-en hidden>multi-module erp/mes platform</h3>
+            </a>
             <p data-tr>Bir endüstriyel işletmenin teklif, sipariş, üretim planlama ve sevkiyat akışları birbirinden kopuk araçlarda yönetiliyordu; satışın ne kesti üretim bilmiyordu, stok güncelleme elle yapılıyordu. Bu sistemleri tek bir platforma taşıdım: bugün satış teklifte fatura keser, üretim planlamayı oradan görür, sevkiyat çıkışı stoktan otomatik düşer. Birden fazla şirketi, üç para birimini ve satır bazlı tam denetim izini aynı anda taşıyacak şekilde tasarladım. Multi-tenant mimari, snapshot fiyat geçmişi ve optimistic locking ile kurumsal ölçeğe hazır bir Laravel yığını — halen geliştiriyorum. <a class="write-up" href="/blog/excelin-bittigi-yer">yazı →</a></p>
             <p data-en hidden>An industrial business was managing its quotation, order, production and shipping flows across disconnected tools — sales had no visibility into what production was running, and stock updates were done by hand. I unified these into a single platform: today, sales generates invoices from quotes, production reads its plan from the same system, and shipped goods are deducted from stock automatically. The platform is built to carry multiple companies, three currencies, and a row-level audit trail simultaneously. A modern Laravel stack — multi-tenant, snapshot-priced, optimistically locked for concurrency — still in active development. <a class="write-up" href="/blog/excelin-bittigi-yer">read →</a></p>
           </div>
@@ -170,8 +172,10 @@ const personJsonLd = {
         <div class="item lead" data-stack="laravel php vue inertia ts tailwind postgres redis eloquent tspl qr industrial internal-tools end-to-end domain field-ux">
           <div class="n">02<span class="of" aria-hidden="true"> / 09</span></div>
           <div>
-            <h3 data-tr>endüstriyel depo yönetim sistemi</h3>
-            <h3 data-en hidden>industrial warehouse management system</h3>
+            <a class="item-title-link" href="/blog/kerestenin-gunlugu">
+              <h3 data-tr>endüstriyel depo yönetim sistemi</h3>
+              <h3 data-en hidden>industrial warehouse management system</h3>
+            </a>
             <p data-tr>Fabrika deposunda biri el terminaliyle rafta, diğeri masaüstünde ofiste çalışıyor — ikisi de aynı veriyi aynı anda görüyor. Ürünün mal kabulden teslim doğrulamasına kadar her adımını QR koduyla izlenebilir hale getirdim; etiket yazıcıya doğrudan TSPL çıktısı, tabletlerin pil durumunu anlık izleyen cihaz telemetrisi ve internet kesildiğinde çevrimdışı çalışma kapasitesi buna dahil. Cihaz türünü User-Agent üzerinden tespit eden katman, mobil ve masaüstü rotaları otomatik ayırıyor; 16 tablolu domain modeli tüm akışı tek bir veri kümesinde birleştiriyor. <a class="write-up" href="/blog/kerestenin-gunlugu">yazı →</a></p>
             <p data-en hidden>On the factory floor, one person is scanning products at a shelf with a handheld terminal while another is working at a desktop in the office — both see the same data, live. I made every step traceable by QR code, from goods receiving to delivery confirmation, with direct TSPL output to the industrial label printer, live battery telemetry from tablets, and offline capability when the network drops. A User-Agent detection layer automatically routes mobile and desktop users to separate views; a 16-table domain model holds the entire flow in a single dataset. <a class="write-up" href="/blog/kerestenin-gunlugu">read →</a></p>
           </div>

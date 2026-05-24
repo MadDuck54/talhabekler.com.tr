@@ -296,6 +296,14 @@ main {
 .item.lead .n { color: var(--accent); }
 .item.lead h3 { font-size: 22px; }
 
+/* ── CV item → başlık link'i (h3'ü tıklanır yapar) ─── */
+.item-title-link { color: inherit; text-decoration: none; display: block; }
+.item-title-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
 /* ── CV item → blog yazısı referans linki ─── */
 .write-up {
   display: inline-block;
