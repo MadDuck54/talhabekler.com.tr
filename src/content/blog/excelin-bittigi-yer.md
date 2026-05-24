@@ -5,6 +5,9 @@ metaDescription: "Yarı bitmiş bir ERP devraldım: ASP.NET'ten Laravel'e taşı
 date: 2026-04-28
 tags: [erp, üretim, saha, altyapı]
 docNumber: 2
+lang: tr
+translations:
+  en: beyond-excel
 ---
 
 Üretim ve operasyon işletmeleri için iç araçlar yazıyorum. En çok zaman ayırdığım proje, içinde çalıştığım bir endüstriyel işletmenin ERP/MES platformu. Bu yazı, sıfırdan benim kurduğum bir sistemin değil; yarı bitmiş halde elime geçen, taşıdığım, üstüne ördüğüm, hâlâ örmekte olduğum bir sistemin notu. Dört buçuk ay birikmişti.
