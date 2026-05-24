@@ -1,43 +1,22 @@
-# Astro Starter Kit: Minimal
+# talhabekler.com.tr
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Bu repo, [talhabekler.com.tr](https://talhabekler.com.tr) adresindeki kişisel sitenin kaynak kodu.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Dastaş'ta satış ve sevkiyat işleri yapıyorum. Boş zamanımda fabrikanın ihtiyaç duyduğu iç araçları yazıyorum. Burada da onlardan ne öğrendiğimi not alıyorum.
 
-## 🚀 Project Structure
+## Blog
 
-Inside of your Astro project, you'll see the following folders and files:
+- [Excel'in bittiği yer](https://talhabekler.com.tr/blog/excelin-bittigi-yer) — yarı bitmiş bir ERP'yi devralıp Laravel'e taşıma notu
+- [Kerestenin günlüğü](https://talhabekler.com.tr/blog/kerestenin-gunlugu) — ithal kereste için WMS yazma deneyimi
+- [A timber's diary](https://talhabekler.com.tr/blog/the-lumber-log) — yukarıdakinin İngilizcesi
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## Yığın
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+- Astro 6 + MDX
+- Düz CSS, framework yok
+- Self-hosted (Caddy, talha-server)
+- Bare repo + `post-receive` hook ile deploy
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Lisans
 
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+İçerik (yazılar, görseller) — tüm hakları saklı. Site kodu — kişisel kullanım için referans amaçlıdır.
