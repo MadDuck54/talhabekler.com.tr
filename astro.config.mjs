@@ -11,7 +11,13 @@ export default defineConfig({
   integrations: [mdx()],
   markdown: {
     shikiConfig: {
-      theme: 'github-dark-default',
+      // çift tema: token renkleri --shiki-light / --shiki-dark CSS değişkenleri
+      // olarak gömülür; hangisinin uygulanacağını global.css data-theme'e göre seçer
+      themes: {
+        light: 'github-light-default',
+        dark: 'github-dark-default',
+      },
+      defaultColor: false,
       wrap: false,
     },
   },

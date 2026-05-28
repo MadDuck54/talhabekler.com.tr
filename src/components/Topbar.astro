@@ -19,6 +19,10 @@ const {
 
 // statik dil verildiyse meta tek dilde sabit
 const staticMeta = lang ? (lang === 'en' ? metaEn : metaTr) : undefined;
+
+// tema düğmesi etiketleri (EN sayfada İngilizce, diğer durumda TR)
+const themeLabel = lang === 'en' ? 'Toggle theme' : 'Tema değiştir';
+const themeTitle = lang === 'en' ? 'Light / dark theme' : 'Koyu / açık tema';
 ---
 <header class="topbar grid12">
   <div class="left">
@@ -39,6 +43,10 @@ const staticMeta = lang ? (lang === 'en' ? metaEn : metaTr) : undefined;
       <span class="sl">·</span>
       <a href="/blog" class={section === 'blog' ? 'on' : ''}>blog</a>
     </nav>
+    <button id="theme-toggle" type="button" class="theme-toggle" aria-pressed="false" aria-label={themeLabel} title={themeTitle}>
+      <span class="dot" aria-hidden="true"></span>
+    </button>
+    <span class="sl">·</span>
     {showLangToggle && (
       <>
         <button class="on" data-set="tr">TR</button>
